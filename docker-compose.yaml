@@ -1,0 +1,15 @@
+version: "3"
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+  redis:
+    image: 'redis:latest'
+  server:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./server
+    volumes:
+      - /app/node_modules #don t override this folder, it s a bookmark
+      - ./server:/app  #every change will be made inside the server dir, will be reflected to /app dir
