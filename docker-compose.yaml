@@ -6,6 +6,13 @@ services:
       - POSTGRES_PASSWORD=postgres_password
   redis:
     image: 'redis:latest'
+  nginx:
+    restart: always #no matter what, this service needs to run always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80' # we will access the app from port 3050
   api:
     build: 
       dockerfile: Dockerfile.dev
