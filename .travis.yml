@@ -12,14 +12,14 @@ script:
 #build images using the prod dockerfile
 after_success:
 #login to docker CLI
-  # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker build -t ally/client ./client
   - docker build -t ally/nginx ./nginx
   - docker build -t ally/server ./server
   - docker build -t ally/worker ./worker
 
 # Take images and push to docker hub
-  # - docker push ally/client
-  # - docker push ally/nginx
-  # - docker push ally/server
-  # - docker push ally/worker
+  - docker push ally/client
+  - docker push ally/nginx
+  - docker push ally/server
+  - docker push ally/worker
