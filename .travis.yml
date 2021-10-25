@@ -3,23 +3,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t ally/fibonacci-test -f ./client/Dockerfile.dev ./client
+  - docker build -t alexandra13/fibonacci-test -f ./client/Dockerfile.dev ./client
   # we will make tests with developement dockerfile
 
 script:
-  - docker run -e CI=true ally/fibonacci-test npm test
+  - docker run -e CI=true alexandra13/fibonacci-test npm test
 
 #build images using the prod dockerfile
 after_success:
 #login to docker CLI
-  # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker build -t ally/client ./client
-  - docker build -t ally/nginx ./nginx
-  - docker build -t ally/server ./server
-  - docker build -t ally/worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker build -t alexandra13/client ./client
+  - docker build -t alexandra13/nginx ./nginx
+  - docker build -t alexandra13/server ./server
+  - docker build -t alexandra13/worker ./worker
 
 # Take images and push to docker hub
-  # - docker push ally/client
-  # - docker push ally/nginx
-  # - docker push ally/server
-  # - docker push ally/worker
+  - docker push alexandra13/client
+  - docker push alexandra13/nginx
+  - docker push alexandra13/server
+  - docker push alexandra13/worker
