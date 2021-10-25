@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ally/fibonacci-test -f ./client/Dockerfile.dev ./client
+  # we will make tests with developement dockerfile
+
+script:
+  - docker run -e CI=true ally/fibonacci-test npm test
+
+#build images using the prod dockerfile
+after_success:
+  - docker build -t ally/client ./client
+  - docker build -t ally/nginx ./nginx
+  - docker build -t ally/server ./server
+  - docker build -t ally/worker ./worker
+
+#login to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take images and push to docker hub
+  - docker push ally/client
+  - docker push ally/nginx
+  - docker push ally/server
+  - docker push ally/worker
