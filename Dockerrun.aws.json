@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "alexandra13/client",
+            "hostname": "client",
+            "essential": false 
+        },
+        {
+            "name": "server",
+            "image": "alexandra13/server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "alexandra13/worker",
+            "hostname": "worker",
+            "essential": false    
+        },
+        {
+            "name": "nginx",
+            "image": "alexandra13/nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }       
+    ]
+}
